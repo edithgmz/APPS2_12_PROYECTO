@@ -5,28 +5,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".Nivel">
 
-    <!--una lista podria ser conveniente-->
+    <TextView
+        android:id="@+id/txtX"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello World!" />
+
+    <TextView
+        android:id="@+id/txtY"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello World!" />
+
+    <TextView
+        android:id="@+id/txtZ"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello World!" />
+
     <Button
-        android:id="@+id/btnNivel"
+        android:id="@+id/btnAct"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="onClick"
-        android:text="Nivel" />
-
-    <Button
-        android:id="@+id/btnCamara"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Button"
+        android:text="Datos"
         android:onClick="onClick"/>
 
+    <!--Calibrar-->
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/btnCal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button"
+        android:text="Calibrar"
         android:onClick="onClick"/>
+
+
+
 
 </LinearLayout>
