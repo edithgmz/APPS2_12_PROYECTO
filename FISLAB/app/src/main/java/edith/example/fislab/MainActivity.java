@@ -19,4 +19,10 @@ public class MainActivity extends AppCompatActivity {
         btn = findViewById(R.id.btnNivel);
     }
 
+
+    public void onClick(View view) {
+        Toast.makeText(this, "copaa", Toast.LENGTH_SHORT).show();
+        Intent inNivel = new Intent(MainActivity.this,Nivel.class);
+        startActivity(inNivel);
+    }
 }

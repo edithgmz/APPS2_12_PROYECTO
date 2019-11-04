@@ -2,100 +2,93 @@ package edith.example.fislab;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.icu.text.UnicodeSetSpanner;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class Nivel extends AppCompatActivity {
-    Sensor miSen;
-    SensorManager miSenMan;
-    SensorEventListener miSenLis;//evento de sensor se puede reimplementar como cualquier otro evento
+public class Nivel extends AppCompatActivity implements SensorEventListener{
+    private Sensor miSen;
+    private SensorManager miSenMan;
+    private SensorEventListener miSenLis;//evento de sensor se puede reimplementar como cualquier otro evento
     TextView txtX, txtY, txtZ;
-    float x,y,z,xCal,yCal,zCal;
+    Button btnA,btnC;
+    private float x=0,y=0,z=0,xCal,yCal,zCal;
+
+    private SensorManager mSensorManager;
+    private Sensor mGyroscope;
+    TextView axisX, axisY, axisZ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_nivel);
 
-        txtX = findViewById(R.id.txtX);
-        txtY = findViewById(R.id.txtY);
-        txtZ = findViewById(R.id.txtZ);
+        axisX = (TextView) findViewById(R.id.txtX);
+        axisY = (TextView) findViewById(R.id.txtY);
+        axisZ = (TextView) findViewById(R.id.txtZ);
+        btnA = findViewById(R.id.btnAct);
+        btnC = findViewById(R.id.btnCal);
 
-        miSenMan = (SensorManager)getSystemService(SENSOR_SERVICE);
-        miSen = miSenMan.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
-        if (miSen==null){
-            finish();
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        mGyroscope = mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
+        if(mGyroscope==null)
+            Toast.makeText(this, "no gir", Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(this, "si gir", Toast.LENGTH_SHORT).show();
+    }
+    
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+        // Do something here if sensor accuracy changes.
+    }@Override
+    public void onSensorChanged(SensorEvent event) {
+        if(mGyroscope.getType() == Sensor.TYPE_ROTATION_VECTOR){
+            x = (float) Math.toDegrees(2* Math.asin(event.values[0]));
+            y = (float) Math.toDegrees(2 * Math.asin(event.values[1]));
+            z = (float) Math.toDegrees(2 * Math.asin(event.values[2]));
+
+            if(x<.001)
+                x=0;
+            if(y<.001)
+                y=0;
+
+            // axisX.setText("x: "+x);
+            //axisY.setText("y: "+y);
+
+
         }
-        miSenLis = new SensorEventListener() {
-            @Override
-            public void onSensorChanged(SensorEvent sensorEvent) {
-                Sensor mySensor = sensorEvent.sensor;
-                if (mySensor.getType() == Sensor.TYPE_ROTATION_VECTOR) {
-                    //los angulos funcionan value= sin(x/2) donde x es el angulo
-                    //asi que para sacar el angulo es x = 2 * arcsin(value)
-                    //pero lo devuelve en radianes y sin calibrar
-                    x = (float) Math.toDegrees(2 * Math.asin(sensorEvent.values[0]));
-                    y = (float) Math.toDegrees(2 * Math.asin(sensorEvent.values[1]));
-                    z = (float) Math.toDegrees(2 * Math.asin(sensorEvent.values[2]));
-
-                     /*
-                System.out.println(" x: "+x);
-                    System.out.println(" Y: "+y);
-                    System.out.println(" Z: "+z);
-                    */
-
-                }
-            }
-
-            @Override
-            public void onAccuracyChanged(Sensor sensor, int i) {
-
-            }
-        };
-        start();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        stop();
-
-    }
-
-    @Override
+        // axisY.setText("Y: "+y);
+        // axisZ.setText("Z: "+z);
+    }@Override
     protected void onResume() {
         super.onResume();
-        start();
+        mSensorManager.registerListener(this, mGyroscope, SensorManager.SENSOR_DELAY_NORMAL);
+    }@Override
+    protected void onPause() {
+        super.onPause();
+        mSensorManager.unregisterListener(this);
     }
-
-    private void start(){
-        miSenMan.registerListener(miSenLis, miSen, SensorManager.SENSOR_DELAY_NORMAL);
-    }
-
-    private void stop(){
-        miSenMan.unregisterListener(miSenLis);
-    }
-
 
     public void onClick(View view) {
-
         switch (view.getId()){
             case R.id.btnAct:
-                txtX.setText(x+"");
-                System.out.println("x: ");
-                txtY.setText(y+"");
-                txtZ.setText(z+"");
+                Toast.makeText(this, "act", Toast.LENGTH_SHORT).show();
+                axisX.setText("x: "+(x-xCal));
+                axisY.setText("y: "+(y-yCal));
                 break;
-           /* case R.id.btnCal:
-                xCal = x;
-                yCal = y;
-                zCal = z;
-                break;*/
+            case R.id.btnCal:
+                Toast.makeText(this, "cal", Toast.LENGTH_SHORT).show();
+                xCal=x;
+                yCal=y;
+                break;
         }
     }
 }
