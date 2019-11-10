@@ -44,7 +44,7 @@ public class Nivel extends AppCompatActivity implements SensorEventListener{
         else
             Toast.makeText(this, "si gir", Toast.LENGTH_SHORT).show();
     }
-    
+
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
         // Do something here if sensor accuracy changes.
@@ -59,6 +59,9 @@ public class Nivel extends AppCompatActivity implements SensorEventListener{
                 x=0;
             if(y<.001)
                 y=0;
+
+            if(z<.001)
+                z=0;
 
             // axisX.setText("x: "+x);
             //axisY.setText("y: "+y);
@@ -83,11 +86,13 @@ public class Nivel extends AppCompatActivity implements SensorEventListener{
                 Toast.makeText(this, "act", Toast.LENGTH_SHORT).show();
                 axisX.setText("x: "+(x-xCal));
                 axisY.setText("y: "+(y-yCal));
+                axisZ.setText("z: "+(z-zCal));
                 break;
             case R.id.btnCal:
                 Toast.makeText(this, "cal", Toast.LENGTH_SHORT).show();
                 xCal=x;
                 yCal=y;
+                zCal=z;
                 break;
         }
     }
