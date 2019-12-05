@@ -9,7 +9,13 @@ public class ResColor {//el resistor vale x1*10 + x2 + 10^x3 +- x4 donde x4 solo
 
 
 
-    final static int BROWN[] = {}; //café es 1
+    final static int BROWN[] = {Color.rgb(72, 70, 82), //café es 1
+            Color.rgb(96, 91, 111),
+            Color.rgb(81, 90, 108),
+            Color.rgb(64, 57, 77),
+            Color.rgb(31, 30, 38),
+            Color.rgb(40, 50, 60),
+    };
     final static int RED[] = {Color.rgb(141, 115, 64),//rojo es 2
             Color.rgb(162, 62, 70),
             Color.rgb(138, 51, 60),
