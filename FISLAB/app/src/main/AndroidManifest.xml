@@ -11,6 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".AcelerometerActivity"></activity>
+        <activity android:name=".ProximityActivity" />
         <activity
             android:name=".NivelActivity"
             android:label="@string/nivel_activity"
