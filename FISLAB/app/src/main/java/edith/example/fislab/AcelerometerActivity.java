@@ -35,7 +35,7 @@ public class AcelerometerActivity extends AppCompatActivity implements SensorEve
     private float xAct = 0;
     private float yAct = 0;
     private float zAct = 0;
-    
+
     private float xCal, yCal, zCal;
 
     @Override protected void onCreate(Bundle savedInstanceState) {
