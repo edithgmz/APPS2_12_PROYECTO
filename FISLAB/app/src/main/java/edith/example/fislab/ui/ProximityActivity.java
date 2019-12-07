@@ -1,16 +1,14 @@
-package edith.example.fislab;
+package edith.example.fislab.ui;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Context;
-import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 
-import com.github.mikephil.charting.components.Legend;
+import androidx.appcompat.app.AppCompatActivity;
+
+import edith.example.fislab.R;
 
 public class ProximityActivity extends AppCompatActivity implements SensorEventListener {
     private SensorManager sensorManager;

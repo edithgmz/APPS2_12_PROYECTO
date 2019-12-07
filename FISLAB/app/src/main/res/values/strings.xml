@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">FISLAB</string>
     <string name="nivel_activity">Nivel</string>
+    <string name="rescolor_activity">Valor Resistor</string>
     <string name="btn_datos">Datos</string>
     <string name="btn_calibrar">Calibrar</string>
+    <string-array name="arr_tolerancia">
+        <item>Dorado</item>
+        <item>Plateado</item>
+    </string-array>
 </resources>

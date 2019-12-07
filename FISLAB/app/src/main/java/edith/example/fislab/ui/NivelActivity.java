@@ -1,4 +1,4 @@
-package edith.example.fislab;
+package edith.example.fislab.ui;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -24,11 +24,12 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 
+import edith.example.fislab.R;
+
 public class NivelActivity extends AppCompatActivity implements SensorEventListener, Button.OnClickListener {
     Button btnActual, btnCalibrar;
     TextView axisX, axisY, axisZ;
     ScatterChart graficaNivel;
-    private SensorEventListener miSenLis;//evento de sensor se puede reimplementar como cualquier otro evento
     private SensorManager sensorManager;
     private Sensor sRotVec, sGameRotVec;
     private float xAct = 0;
@@ -104,6 +105,7 @@ public class NivelActivity extends AppCompatActivity implements SensorEventListe
     @Override public void onSensorChanged(SensorEvent event) {
         //Utilizar Rotation Vector si Game Rotation Vector es nulo
         if ((sRotVec != null) && (sGameRotVec == null)) {
+            //TODO: Poner esto en un método
             //Convertir valores crudos obtenidos
             if (sRotVec.getType() == Sensor.TYPE_ROTATION_VECTOR) {
                 xAct = (float) Math.toDegrees(2 * Math.asin(event.values[0]));
@@ -115,7 +117,6 @@ public class NivelActivity extends AppCompatActivity implements SensorEventListe
                 if (zAct < .001) { zAct = 0; }
             }
         }
-
         //Utilizar Game Rotation Vector si Rotation Vector es nulo
         if ((sGameRotVec != null) && (sRotVec == null)) {
             //Convertir valores crudos obtenidos
@@ -140,12 +141,15 @@ public class NivelActivity extends AppCompatActivity implements SensorEventListe
         float x = xAct - xCal;
         float y = yAct - yCal;
         float z = zAct - zCal;
+        String X = "X: " + x + "°";
+        String Y = "Y: " + y + "°";
+        String Z = "Z: " + z + "°";
         switch (view.getId()) {
             case R.id.btnActual:
                 //Mostrar valores en las etiquetas
-                axisX.setText("X: " + x);
-                axisY.setText("Y: " + y);
-                axisZ.setText("Z: " + z);
+                axisX.setText(X);
+                axisY.setText(Y);
+                axisZ.setText(Z);
                 //Crear array list para cada eje
                 ArrayList<Entry> alEjeX = new ArrayList<>();
                 ArrayList<Entry> alEjeY = new ArrayList<>();

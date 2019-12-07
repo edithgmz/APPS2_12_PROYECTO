@@ -1,6 +1,4 @@
-package edith.example.fislab;
-
-import androidx.appcompat.app.AppCompatActivity;
+package edith.example.fislab.ui;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -12,7 +10,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.github.mikephil.charting.charts.ScatterChart;
 import com.github.mikephil.charting.components.Legend;
@@ -23,6 +22,8 @@ import com.github.mikephil.charting.interfaces.datasets.IScatterDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
+
+import edith.example.fislab.R;
 
 public class AcelerometerActivity extends AppCompatActivity implements SensorEventListener, Button.OnClickListener {
 
