@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".ui.MainActivity">
 
     <!--una lista podria ser conveniente-->
     <Button
@@ -14,15 +14,9 @@
         android:text="Nivel" />
 
     <Button
-        android:id="@+id/btnResis"
+        android:id="@+id/btnResValor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Resistor" />
-
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Button" />
+        android:text="Valor Resistor" />
 
 </LinearLayout>
