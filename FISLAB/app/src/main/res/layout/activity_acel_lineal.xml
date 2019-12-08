@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.AcelLinealActivity">
+    tools:context=".activities.AcelLinealActivity">
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/graficaAcelerometro"

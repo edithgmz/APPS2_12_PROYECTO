@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".fragments.VerifSensoresFragment">
+
+    <CheckBox
+        android:id="@+id/chBxGameRotVec"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:buttonTint="@color/colorAccent"
+        android:checked="false"
+        android:enabled="false"
+        android:text="@string/sen_game_rotation_vector"
+        android:textAlignment="textStart"
+        android:textColor="@android:color/black"
+        android:textSize="24sp" />
+
+    <CheckBox
+        android:id="@+id/chBxLinearAccel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:buttonTint="@color/colorAccent"
+        android:checked="false"
+        android:enabled="false"
+        android:text="@string/sen_linear_acceleration"
+        android:textAlignment="textStart"
+        android:textColor="@android:color/black"
+        android:textSize="24sp" />
+
+    <CheckBox
+        android:id="@+id/chBzRotationVec"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:buttonTint="@color/colorAccent"
+        android:checked="false"
+        android:enabled="false"
+        android:text="@string/sen_rotation_vector"
+        android:textAlignment="textStart"
+        android:textColor="@android:color/black"
+        android:textSize="24sp" />
+
+    <CheckBox
+        android:id="@+id/chBxProximity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:buttonTint="@color/colorAccent"
+        android:checked="false"
+        android:enabled="false"
+        android:text="@string/sen_proximity"
+        android:textAlignment="textStart"
+        android:textColor="@android:color/black"
+        android:textSize="24sp" />
+</LinearLayout>
