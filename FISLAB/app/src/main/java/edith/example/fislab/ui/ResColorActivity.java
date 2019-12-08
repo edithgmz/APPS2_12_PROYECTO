@@ -98,7 +98,9 @@ public class ResColorActivity extends AppCompatActivity implements Button.OnClic
                 break;
             case R.id.btnCalcular:
                 txtVwValor.setVisibility(View.VISIBLE);
+
                 txtVwValor.setText(ResColor.calculaRes(b1, b2, b3, tol));
+
                 break;
         }
     }
@@ -131,6 +133,7 @@ public class ResColorActivity extends AppCompatActivity implements Button.OnClic
 
         if (spTolerancia.getSelectedItem().toString().equals("Dorado")) { tol = true; }
         if (spTolerancia.getSelectedItem().toString().equals("Plateado")) { tol = false; }
+
 
         Log.wtf("Color", redValue + ", " + greenValue + ", " + blueValue);
         Toast.makeText(this, "Color: " + redValue + ", " + greenValue + ", " + blueValue, Toast.LENGTH_LONG).show();
