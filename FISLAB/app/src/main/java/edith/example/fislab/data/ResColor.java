@@ -27,7 +27,8 @@ public class ResColor {//el resistor vale x1*10 + x2 + 10^x3 +- x4 donde x4 solo
     private final static int[] ORANGE = {Color.rgb(255,127,0)}; //anaranjado en 3
 
     private final static int[] YELLOW = {Color.rgb(151, 121, 65), //amarillo es 4
-                                         Color.rgb(127, 104, 62), Color.rgb(141, 115, 64)};
+                                         Color.rgb(127, 104, 62), Color.rgb(141, 115, 64),
+    Color.YELLOW};
 
 
     private final  static int[] GREEN = {Color.GREEN};  //verde es 5
