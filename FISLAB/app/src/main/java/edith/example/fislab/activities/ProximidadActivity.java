@@ -18,13 +18,9 @@ import edith.example.fislab.R;
 public class ProximidadActivity extends AppCompatActivity implements SensorEventListener {
     private SensorManager sensorManager;
     private Sensor sProximity;
-    private float xAct = 0;
-    private float yAct = 0;
-    private float zAct = 0;
+
     private float proximityVal;
-    private TextView txtVwTime;
-    private long time_start;
-    private long time_end;
+
     private Chronometer cronometro;
     private boolean correr;
     private long detenerse;
@@ -62,10 +58,10 @@ public class ProximidadActivity extends AppCompatActivity implements SensorEvent
             //Convertir valores crudos obtenidos
             proximityVal = sensorEvent.values[0];
             if(proximityVal < sProximity.getMaximumRange()){
-                findViewById(R.id.btnStart).setBackgroundColor(Color.BLACK);
+                findViewById(R.id.btnStart).setBackgroundColor(Color.RED);
                 stopChronometer();
             }
-            else findViewById(R.id.btnStart).setBackgroundColor(Color.WHITE);
+            else findViewById(R.id.btnStart).setBackgroundColor(Color.GREEN);
         }
 
     }
