@@ -1,9 +1,24 @@
 <resources>
     <string name="app_name">FISLAB</string>
+    <string name="acel_activity">Aceleración Lineal</string>
     <string name="nivel_activity">Nivel</string>
+    <string name="prox_activity">Proximidad</string>
     <string name="rescolor_activity">Valor Resistor</string>
     <string name="btn_datos">Datos</string>
     <string name="btn_calibrar">Calibrar</string>
+    <string name="btn_limpiar">Limpiar Gráfica</string>
+    <string name="res_color_mensaje">Toca los colores en orden.</string>
+    <string name="btn_abrir_imagen">Abrir Imagen</string>
+    <string name="btn_calcular">Calcular</string>
+    <string name="res_1ra_banda">1ra Banda</string>
+    <string name="res_2da_banda">2da Banda</string>
+    <string name="res_multiplicador">Multiplicador</string>
+    <string name="res_tolerancia">Tolerancia</string>
+    <string name="btn_verificar_sensores">Verificar Sensores</string>
+    <string name="btn_aceleracion_lineal">Aceleración Lineal</string>
+    <string name="btn_nivel">Nivel</string>
+    <string name="btn_proximidad">Proximidad</string>
+    <string name="btn_valor_resistor">Valor Resistor</string>
     <string-array name="arr_tolerancia">
         <item>Dorado</item>
         <item>Plateado</item>

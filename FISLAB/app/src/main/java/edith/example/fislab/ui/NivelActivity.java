@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -27,9 +26,9 @@ import java.util.ArrayList;
 import edith.example.fislab.R;
 
 public class NivelActivity extends AppCompatActivity implements SensorEventListener, Button.OnClickListener {
-    Button btnActual, btnCalibrar;
-    TextView axisX, axisY, axisZ;
-    ScatterChart graficaNivel;
+    private ScatterChart graficaNivel;
+    private TextView axisX, axisY, axisZ;
+    //Sensores
     private SensorManager sensorManager;
     private Sensor sRotVec, sGameRotVec;
     private float xAct = 0;
@@ -41,12 +40,12 @@ public class NivelActivity extends AppCompatActivity implements SensorEventListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nivel);
         //Vincular componentes
-        axisX = findViewById(R.id.txtX);
-        axisY = findViewById(R.id.txtY);
-        axisZ = findViewById(R.id.txtZ);
-        btnActual = findViewById(R.id.btnActual);
-        btnCalibrar = findViewById(R.id.btnCalibrar);
+        Button btnDatosNivel = findViewById(R.id.btnDatosNivel);
+        Button btnCalibrarNivel = findViewById(R.id.btnCalibrarNivel);
         graficaNivel = findViewById(R.id.graficaNivel);
+        axisX = findViewById(R.id.txtXNivel);
+        axisY = findViewById(R.id.txtYNivel);
+        axisZ = findViewById(R.id.txtZNivel);
         //Obtener servicio del sistema
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         //Verificar que el manager no esté vacío
@@ -76,22 +75,19 @@ public class NivelActivity extends AppCompatActivity implements SensorEventListe
         legend.setYEntrySpace(2f);
         //Deshabilitar eje derecho
         graficaNivel.getAxisRight().setEnabled(false);
+        //Escuchadores
+        btnDatosNivel.setOnClickListener(this);
+        btnCalibrarNivel.setOnClickListener(this);
     }
 
     @Override protected void onResume() {
         super.onResume();
         //Verificar que exista el sensor
-        if (sRotVec == null) {
-            Toast.makeText(this, "No disponible: Rotation Vector Sensor.", Toast.LENGTH_SHORT).show();
-        } else { //Registrar escuchador si existe sensor
-            Toast.makeText(this, "Utilizando: Rotation Vector Sensor.", Toast.LENGTH_SHORT).show();
+        if (sRotVec != null) {
             sensorManager.registerListener(this, sRotVec, SensorManager.SENSOR_DELAY_NORMAL);
         }
         //Verificar que exista el sensor
-        if (sGameRotVec == null) {
-            Toast.makeText(this, "No disponible: Game Rotation Vector Sensor.", Toast.LENGTH_SHORT).show();
-        } else { //Registrar escuchador si existe sensor
-            Toast.makeText(this, "Utilizando: Game Rotation Vector Sensor.", Toast.LENGTH_SHORT).show();
+        if (sGameRotVec != null) {
             sensorManager.registerListener(this, sGameRotVec, SensorManager.SENSOR_DELAY_NORMAL);
         }
     }
@@ -105,7 +101,6 @@ public class NivelActivity extends AppCompatActivity implements SensorEventListe
     @Override public void onSensorChanged(SensorEvent event) {
         //Utilizar Rotation Vector si Game Rotation Vector es nulo
         if ((sRotVec != null) && (sGameRotVec == null)) {
-            //TODO: Poner esto en un método
             //Convertir valores crudos obtenidos
             if (sRotVec.getType() == Sensor.TYPE_ROTATION_VECTOR) {
                 xAct = (float) Math.toDegrees(2 * Math.asin(event.values[0]));
@@ -145,51 +140,59 @@ public class NivelActivity extends AppCompatActivity implements SensorEventListe
         String Y = "Y: " + y + "°";
         String Z = "Z: " + z + "°";
         switch (view.getId()) {
-            case R.id.btnActual:
+            case R.id.btnDatosNivel:
                 //Mostrar valores en las etiquetas
                 axisX.setText(X);
                 axisY.setText(Y);
                 axisZ.setText(Z);
-                //Crear array list para cada eje
-                ArrayList<Entry> alEjeX = new ArrayList<>();
-                ArrayList<Entry> alEjeY = new ArrayList<>();
-                ArrayList<Entry> alEjeZ = new ArrayList<>();
-                //Añadir entradas a los array list
-                alEjeX.add(new Entry(-1f, x));
-                alEjeY.add(new Entry(0f, y));
-                alEjeZ.add(new Entry(1f, z));
-                //Establecer sets de datos por cada eje
-                ScatterDataSet setEjeX = new ScatterDataSet(alEjeX, "X");
-                setEjeX.setColors(ColorTemplate.MATERIAL_COLORS[0]);
-                setEjeX.setValueTextColor(Color.BLACK);
-                setEjeX.setValueTextSize(12f);
-                ScatterDataSet setEjeY = new ScatterDataSet(alEjeY, "Y");
-                setEjeY.setColors(ColorTemplate.MATERIAL_COLORS[3]);
-                setEjeY.setValueTextColor(Color.BLACK);
-                setEjeY.setValueTextSize(12f);
-                ScatterDataSet setEjeZ = new ScatterDataSet(alEjeZ, "Z");
-                setEjeZ.setColors(ColorTemplate.MATERIAL_COLORS[2]);
-                setEjeZ.setValueTextColor(Color.BLACK);
-                setEjeZ.setValueTextSize(12f);
-                //Crear array list de sets
-                ArrayList<IScatterDataSet> setEjes = new ArrayList<>();
-                //Añadir sets de datos
-                setEjes.add(setEjeX);
-                setEjes.add(setEjeY);
-                setEjes.add(setEjeZ);
-                //Crear datos de la gráfica con los ejes
-                ScatterData datosGrafica = new ScatterData(setEjes);
-                //Establecer datos en la gráfica
-                graficaNivel.setData(datosGrafica);
-                //Permite mostrar los datos en cuanto el botón es presionado
-                graficaNivel.invalidate();
+                //Mostrar valores en la gráfica
+                datosGrafica(x, y, z);
                 break;
-            case R.id.btnCalibrar:
+            case R.id.btnCalibrarNivel:
                 //Actualizar valores de calibración
                 xCal = xAct;
                 yCal = yAct;
                 zCal = zAct;
                 break;
         }
+    }
+
+    private void datosGrafica(float x, float y, float z) {
+        //Crear array list para cada eje
+        ArrayList<Entry> alEjeX = new ArrayList<>();
+        ArrayList<Entry> alEjeY = new ArrayList<>();
+        ArrayList<Entry> alEjeZ = new ArrayList<>();
+        //Añadir entradas a los array list
+        alEjeX.add(new Entry(-1f, x));
+        alEjeY.add(new Entry(0f, y));
+        alEjeZ.add(new Entry(1f, z));
+        //Establecer sets de datos por cada eje
+        ScatterDataSet setEjeX = new ScatterDataSet(alEjeX, "X");
+        setEjeX.setColors(ColorTemplate.MATERIAL_COLORS[0]);
+        setEjeX.setValueTextColor(Color.BLACK);
+        setEjeX.setValueTextSize(12f);
+        setEjeX.setHighLightColor(Color.rgb(46, 204, 113));
+        ScatterDataSet setEjeY = new ScatterDataSet(alEjeY, "Y");
+        setEjeY.setColors(ColorTemplate.MATERIAL_COLORS[3]);
+        setEjeY.setValueTextColor(Color.BLACK);
+        setEjeY.setValueTextSize(12f);
+        setEjeY.setHighLightColor(Color.rgb(52, 152, 219));
+        ScatterDataSet setEjeZ = new ScatterDataSet(alEjeZ, "Z");
+        setEjeZ.setColors(ColorTemplate.MATERIAL_COLORS[2]);
+        setEjeZ.setValueTextColor(Color.BLACK);
+        setEjeZ.setValueTextSize(12f);
+        setEjeZ.setHighLightColor(Color.rgb(231, 76, 60));
+        //Crear array list de sets
+        ArrayList<IScatterDataSet> setEjes = new ArrayList<>();
+        //Añadir sets de datos
+        setEjes.add(setEjeX);
+        setEjes.add(setEjeY);
+        setEjes.add(setEjeZ);
+        //Crear datos de la gráfica con los ejes
+        ScatterData datosGrafica = new ScatterData(setEjes);
+        //Establecer datos en la gráfica
+        graficaNivel.setData(datosGrafica);
+        //Permite mostrar los datos en cuanto el botón es presionado
+        graficaNivel.invalidate();
     }
 }

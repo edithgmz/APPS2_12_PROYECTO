@@ -16,7 +16,6 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -35,10 +34,10 @@ public class ResColorActivity extends AppCompatActivity implements Button.OnClic
     private Spinner spTolerancia;
     private TextView txtVwColor1, txtVwColor2, txtVwColor3, txtVwMensaje, txtVwValor;
     //Variables para guardar los valores obtenidos de la imagen
-    private int b1 = 0;
-    private int b2 = 0;
-    private int b3 = 0;
-    private boolean tol = false;
+    private int b1;
+    private int b2;
+    private int b3;
+    private String tol;
 
     @SuppressLint("ClickableViewAccessibility") @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,10 +96,9 @@ public class ResColorActivity extends AppCompatActivity implements Button.OnClic
                 startActivityForResult(inGaleria, GALERIA);
                 break;
             case R.id.btnCalcular:
+                tol = spTolerancia.getSelectedItem().toString();
                 txtVwValor.setVisibility(View.VISIBLE);
-
                 txtVwValor.setText(ResColor.calculaRes(b1, b2, b3, tol));
-
                 break;
         }
     }
@@ -131,15 +129,9 @@ public class ResColorActivity extends AppCompatActivity implements Button.OnClic
             txtVwColor3.setBackgroundColor(Color.rgb(redValue, greenValue, blueValue));
         }
 
-        if (spTolerancia.getSelectedItem().toString().equals("Dorado")) { tol = true; }
-        if (spTolerancia.getSelectedItem().toString().equals("Plateado")) { tol = false; }
-
-
         Log.wtf("Color", redValue + ", " + greenValue + ", " + blueValue);
-        Toast.makeText(this, "Color: " + redValue + ", " + greenValue + ", " + blueValue, Toast.LENGTH_LONG).show();
 
         return true;
     }
-
 
 }

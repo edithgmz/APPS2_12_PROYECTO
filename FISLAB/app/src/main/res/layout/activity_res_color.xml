@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="5dp"
     tools:context=".ui.ResColorActivity">
 
     <TextView
@@ -12,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
-        android:text="Toca los colores en orden."
+        android:text="@string/res_color_mensaje"
         android:textAlignment="center"
         android:textColor="@android:color/black"
         android:textSize="18sp"
@@ -25,6 +24,7 @@
         android:clickable="true"
         android:visibility="gone"
         tools:ignore="ContentDescription"
+        android:focusable="true"
         tools:srcCompat="@drawable/ic_launcher_background" />
 
     <TextView
@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/white"
-            android:text="Abrir Imagen" />
+            android:text="@string/btn_abrir_imagen" />
 
         <View
             android:layout_width="2dp"
@@ -72,7 +72,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/white"
-            android:text="Calcular" />
+            android:text="@string/btn_calcular" />
 
         <View
             android:layout_width="2dp"
@@ -102,21 +102,21 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:checked="true"
-                android:text="1ra Banda" />
+                android:text="@string/res_1ra_banda" />
 
             <RadioButton
                 android:id="@+id/rdBtnColor2"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:text="2da Banda" />
+                android:text="@string/res_2da_banda" />
 
             <RadioButton
                 android:id="@+id/rdBtnColor3"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:text="Multiplicador" />
+                android:text="@string/res_multiplicador" />
         </RadioGroup>
 
         <LinearLayout
@@ -133,6 +133,7 @@
                 android:gravity="center"
                 android:textAlignment="center"
                 android:textColor="@android:color/black"
+                tools:ignore="NestedWeights"
                 tools:text="1ra Banda" />
 
             <TextView
@@ -161,7 +162,8 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Tolerancia" />
+        android:layout_marginTop="5dp"
+        android:text="@string/res_tolerancia" />
 
     <Spinner
         android:id="@+id/spTolerancia"

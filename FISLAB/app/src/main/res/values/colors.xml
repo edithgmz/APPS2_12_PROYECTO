@@ -6,4 +6,6 @@
     <color name="materialGreen">#8B2ECC71</color>
     <color name="materialBlue">#8B3498DB</color>
     <color name="materialRed">#8DE74C3C</color>
+    <color name="buttons1">#F3F3F3</color>
+    <color name="buttons2">#F7F7F7</color>
 </resources>

@@ -1,22 +1,164 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     android:orientation="vertical"
     tools:context=".ui.MainActivity">
 
     <!--una lista podria ser conveniente-->
-    <Button
-        android:id="@+id/btnNivel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Nivel" />
 
-    <Button
-        android:id="@+id/btnResValor"
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="?android:attr/listDivider" />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Valor Resistor" />
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:background="?android:attr/listDivider" />
+
+        <Button
+            android:id="@+id/btnSensores"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            android:text="@string/btn_verificar_sensores"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:background="?android:attr/listDivider" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="?android:attr/listDivider" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        app:srcCompat="@drawable/portada"
+        tools:ignore="ContentDescription" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="?android:attr/listDivider" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:background="?android:attr/listDivider" />
+
+        <Button
+            android:id="@+id/btnAcelerometro"
+            android:layout_width="0dp"
+            android:layout_height="90dp"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:background="@color/buttons1"
+            android:text="@string/btn_aceleracion_lineal"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:background="?android:attr/listDivider" />
+
+        <Button
+            android:id="@+id/btnNivel"
+            android:layout_width="0dp"
+            android:layout_height="90dp"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:background="@color/buttons2"
+            android:text="@string/btn_nivel"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:background="?android:attr/listDivider" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="?android:attr/listDivider" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:background="?android:attr/listDivider" />
+
+        <Button
+            android:id="@+id/btnProximidad"
+            android:layout_width="0dp"
+            android:layout_height="90dp"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:background="@color/buttons2"
+            android:text="@string/btn_proximidad"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:background="?android:attr/listDivider" />
+
+        <Button
+            android:id="@+id/btnResValor"
+            android:layout_width="0dp"
+            android:layout_height="90dp"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:background="@color/buttons1"
+            android:text="@string/btn_valor_resistor"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:background="?android:attr/listDivider" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="?android:attr/listDivider" />
 
 </LinearLayout>
