@@ -1,4 +1,4 @@
-package edith.example.fislab.ui;
+package edith.example.fislab.activities;
 
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import edith.example.fislab.R;
 
-public class ProximityActivity extends AppCompatActivity implements SensorEventListener {
+public class ProximidadActivity extends AppCompatActivity implements SensorEventListener {
     private SensorManager sensorManager;
     private Sensor sProximity;
     private float xAct = 0;
@@ -22,7 +22,7 @@ public class ProximityActivity extends AppCompatActivity implements SensorEventL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_proximity);
+        setContentView(R.layout.activity_proximidad);
 
     }
 

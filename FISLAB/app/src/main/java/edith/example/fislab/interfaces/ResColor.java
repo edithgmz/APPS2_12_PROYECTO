@@ -1,4 +1,4 @@
-package edith.example.fislab.data;
+package edith.example.fislab.interfaces;
 
 import android.graphics.Color;
 import android.os.Build;

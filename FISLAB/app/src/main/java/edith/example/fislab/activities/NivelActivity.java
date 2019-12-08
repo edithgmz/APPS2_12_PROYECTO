@@ -1,4 +1,4 @@
-package edith.example.fislab.ui;
+package edith.example.fislab.activities;
 
 import android.content.Context;
 import android.graphics.Color;

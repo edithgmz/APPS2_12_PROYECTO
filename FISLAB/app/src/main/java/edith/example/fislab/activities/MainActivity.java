@@ -1,16 +1,22 @@
-package edith.example.fislab.ui;
+package edith.example.fislab.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import edith.example.fislab.R;
+import edith.example.fislab.fragments.VerifSensoresFragment;
 
 public class MainActivity extends AppCompatActivity implements Button.OnClickListener {
     private Intent inAcel, inNivel, inProx, inResValor;
+    private FrameLayout flSensores;
+    private ImageView imgVwPortada;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,10 +28,12 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         Button btnProximidad = findViewById(R.id.btnProximidad);
         Button btnResValor = findViewById(R.id.btnResValor);
         Button btnSensores = findViewById(R.id.btnSensores);
+        flSensores = findViewById(R.id.flSensores);
+        imgVwPortada = findViewById(R.id.imgVwPortada);
         //Intentos a otras actividades
         inAcel = new Intent(this, AcelLinealActivity.class);
         inNivel = new Intent(this, NivelActivity.class);
-        inProx = new Intent(this, ProximityActivity.class);
+        inProx = new Intent(this, ProximidadActivity.class);
         inResValor = new Intent(this, ResColorActivity.class);
         //Escuchadores
         btnAcelerometro.setOnClickListener(this);
@@ -51,7 +59,17 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
                 startActivity(inResValor);
                 break;
             case R.id.btnSensores:
+                flSensores.setVisibility(View.VISIBLE);
+                imgVwPortada.setVisibility(View.GONE);
+                cargarFragment(new VerifSensoresFragment());
                 break;
+        }
+    }
+
+    private void cargarFragment(Fragment fragment) {
+        //Muestra el fragmento
+        if (fragment != null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.flSensores, fragment).commit();
         }
     }
 }

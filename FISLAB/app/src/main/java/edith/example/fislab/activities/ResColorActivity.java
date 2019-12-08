@@ -1,4 +1,4 @@
-package edith.example.fislab.ui;
+package edith.example.fislab.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -25,7 +25,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import edith.example.fislab.R;
-import edith.example.fislab.data.ResColor;
+import edith.example.fislab.interfaces.ResColor;
 
 public class ResColorActivity extends AppCompatActivity implements Button.OnClickListener, ImageView.OnTouchListener {
     private static final int GALERIA = 1200;

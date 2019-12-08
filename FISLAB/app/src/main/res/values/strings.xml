@@ -23,4 +23,8 @@
         <item>Dorado</item>
         <item>Plateado</item>
     </string-array>
+    <string name="sen_game_rotation_vector">Game Rotation Vector</string>
+    <string name="sen_linear_acceleration">Linear Acceleration</string>
+    <string name="sen_rotation_vector">Rotation Vector</string>
+    <string name="sen_proximity">Proximity</string>
 </resources>
