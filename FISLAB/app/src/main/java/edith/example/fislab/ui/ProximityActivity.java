@@ -38,7 +38,8 @@ public class ProximityActivity extends AppCompatActivity implements SensorEventL
     @Override
     protected void onPause() {
         super.onPause();
-        sensorManager.unregisterListener(this);
+        if(sProximity!=null)
+            sensorManager.unregisterListener(this);
     }
 
     @Override
