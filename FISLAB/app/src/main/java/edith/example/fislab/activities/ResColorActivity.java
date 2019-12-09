@@ -8,7 +8,6 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -37,12 +36,11 @@ public class ResColorActivity extends AppCompatActivity implements Button.OnClic
     private int b1;
     private int b2;
     private int b3;
-    private String tol;
 
     @SuppressLint("ClickableViewAccessibility") @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_res_color);
-
+        //Vincular componentes
         Button btnAbrirImg = findViewById(R.id.btnAbrirImg);
         Button btnCalcular = findViewById(R.id.btnCalcular);
         imgVwResistor = findViewById(R.id.imgVwResistor);
@@ -55,7 +53,7 @@ public class ResColorActivity extends AppCompatActivity implements Button.OnClic
         txtVwColor3 = findViewById(R.id.txtVwColor3);
         txtVwMensaje = findViewById(R.id.txtVwMensaje);
         txtVwValor = findViewById(R.id.txtVwValor);
-
+        //Escuchadores
         btnAbrirImg.setOnClickListener(this);
         btnCalcular.setOnClickListener(this);
         imgVwResistor.setOnTouchListener(this);
@@ -78,8 +76,8 @@ public class ResColorActivity extends AppCompatActivity implements Button.OnClic
                     //Mostrar imagen seleccionada
                     imgVwResistor.setVisibility(View.VISIBLE);
                     imgVwResistor.setImageBitmap(bitmap);
+                    //Mostrar mensaje
                     txtVwMensaje.setVisibility(View.VISIBLE);
-
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
@@ -96,7 +94,8 @@ public class ResColorActivity extends AppCompatActivity implements Button.OnClic
                 startActivityForResult(inGaleria, GALERIA);
                 break;
             case R.id.btnCalcular:
-                tol = spTolerancia.getSelectedItem().toString();
+                //Calcular valor del resistor y mostrarlo
+                String tol = spTolerancia.getSelectedItem().toString();
                 txtVwValor.setVisibility(View.VISIBLE);
                 txtVwValor.setText(ResColor.calculaRes(b1, b2, b3, tol));
                 break;
@@ -106,32 +105,31 @@ public class ResColorActivity extends AppCompatActivity implements Button.OnClic
 
     @SuppressLint("ClickableViewAccessibility") @RequiresApi(api = Build.VERSION_CODES.O) @Override
     public boolean onTouch(View v, MotionEvent event) {
+        //Crear bitmap con el cache de la imagen seleccionada
         imgVwResistor.setDrawingCacheEnabled(true);
-        //Bitmap bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
         Bitmap imgbmp = Bitmap.createBitmap(imgVwResistor.getDrawingCache());
+        //Obtener pixel de las coordenadas que han sido presionadas
         int pixel = imgbmp.getPixel((int) event.getX(), (int) event.getY());
+        //Obtener valores rojo, azul y verde del pixel
         int redValue = Color.red(pixel);
         int blueValue = Color.blue(pixel);
         int greenValue = Color.green(pixel);
-
+        //Establecer valor de la banda 1 y mostrar color
         if (rdBtnColor1.isChecked()) {
             b1 = ResColor.getDigit(pixel);
             txtVwColor1.setBackgroundColor(Color.rgb(redValue, greenValue, blueValue));
         }
-
+        //Establecer valor de la banda 2 y mostrar color
         if (rdBtnColor2.isChecked()) {
             b2 = ResColor.getDigit(pixel);
             txtVwColor2.setBackgroundColor(Color.rgb(redValue, greenValue, blueValue));
         }
-
+        //Establecer valor de la banda 3 y mostrar color
         if (rdBtnColor3.isChecked()) {
             b3 = ResColor.getDigit(pixel);
             txtVwColor3.setBackgroundColor(Color.rgb(redValue, greenValue, blueValue));
         }
-
-        Log.wtf("Color", redValue + ", " + greenValue + ", " + blueValue);
-
+        //Devolver estado del evento
         return true;
     }
-
 }

@@ -57,7 +57,7 @@ public class AcelLinealActivity extends AppCompatActivity implements SensorEvent
         //Establecer descripción de la gráfica
         graficaAcelerometro.getDescription().setEnabled(true);
         Description description = new Description();
-        description.setText("100 datos");
+        description.setText("1 dato capturado cada 250 milisegundos");
         graficaAcelerometro.setDescription(description);
         //Habilitar gestos
         graficaAcelerometro.setTouchEnabled(true);
@@ -115,7 +115,6 @@ public class AcelLinealActivity extends AppCompatActivity implements SensorEvent
 
     @Override public void onSensorChanged(SensorEvent event) {
         if ((sAcel != null)) {
-            //Convertir valores crudos obtenidos
             if (sAcel.getType() == Sensor.TYPE_LINEAR_ACCELERATION) {
                 xAct = event.values[0];
                 yAct = event.values[1];
@@ -126,13 +125,9 @@ public class AcelLinealActivity extends AppCompatActivity implements SensorEvent
                 if (zAct < .01) { zAct = 0; }
             }
         }
-
-
     }
 
-    @Override public void onAccuracyChanged(Sensor sensor, int accuracy) {
-        // Do something here if sensor accuracy changes.
-    }
+    @Override public void onAccuracyChanged(Sensor sensor, int accuracy) {}
 
     @Override public void onClick(View view) {
         switch (view.getId()) {
@@ -149,22 +144,24 @@ public class AcelLinealActivity extends AppCompatActivity implements SensorEvent
                 zCal = zAct;
                 break;
             case R.id.btnLimpiarAcel:
+                //Borrar valores graficados
                 graficaAcelerometro.clearValues();
                 break;
         }
     }
 
     private void datosEjeX() {
+        //Interrumpir hilo
         if (hiloX != null) {
             hiloX.interrupt();
         }
-
+        //Definir runnable para añadir datos a la gráfica
         final Runnable runnable = new Runnable() {
             @Override public void run() {
                 datoEjeX();
             }
         };
-
+        //Definir la cantidad de veces que se ejecutará el hilo
         hiloX = new Thread(new Runnable() {
             @Override public void run() {
                 for (int i = 0; i < 100; i++) {
@@ -178,21 +175,22 @@ public class AcelLinealActivity extends AppCompatActivity implements SensorEvent
                 }
             }
         });
-
+        //Iniciar hilo
         hiloX.start();
     }
 
     private void datosEjeY() {
+        //Interrumpir hilo
         if (hiloY != null) {
             hiloY.interrupt();
         }
-
+        //Definir runnable para añadir datos a la gráfica
         final Runnable runnable = new Runnable() {
             @Override public void run() {
                 datoEjeY();
             }
         };
-
+        //Definir la cantidad de veces que se ejecutará el hilo
         hiloY = new Thread(new Runnable() {
             @Override public void run() {
                 for (int i = 0; i < 100; i++) {
@@ -206,21 +204,22 @@ public class AcelLinealActivity extends AppCompatActivity implements SensorEvent
                 }
             }
         });
-
+        //Iniciar hilo
         hiloY.start();
     }
 
     private void datosEjeZ() {
+        //Interrumpir hilo
         if (hiloZ != null) {
             hiloZ.interrupt();
         }
-
+        //Definir runnable para añadir datos a la gráfica
         final Runnable runnable = new Runnable() {
             @Override public void run() {
                 datoEjeZ();
             }
         };
-
+        //Definir la cantidad de veces que se ejecutará el hilo
         hiloZ = new Thread(new Runnable() {
             @Override public void run() {
                 for (int i = 0; i < 100; i++) {
@@ -234,16 +233,17 @@ public class AcelLinealActivity extends AppCompatActivity implements SensorEvent
                 }
             }
         });
-
+        //Iniciar hilo
         hiloZ.start();
     }
 
     private void datoEjeX() {
+        //Obtener datos de la gráfica
         LineData datosEjeX = graficaAcelerometro.getLineData();
         //Establecer valor del eje
         float x = xAct - xCal;
         String X = "X: " + x + "\nm/s^2";
-
+        //Definir set de datos para el eje X
         ILineDataSet setEjeX = datosEjeX.getDataSetByLabel("X", false);
         if (setEjeX == null) {
             setEjeX = setEjeX();
@@ -259,11 +259,12 @@ public class AcelLinealActivity extends AppCompatActivity implements SensorEvent
     }
 
     private void datoEjeY() {
+        //Obtener datos de la gráfica
         LineData datosEjeY = graficaAcelerometro.getLineData();
         //Establecer valor del eje
         float y = yAct - yCal;
         String Y = "Y: " + y + "\nm/s^2";
-
+        //Definir set de datos para el eje Y
         ILineDataSet setEjeY = datosEjeY.getDataSetByLabel("Y", false);
         if (setEjeY == null) {
             setEjeY = setEjeY();
@@ -279,11 +280,12 @@ public class AcelLinealActivity extends AppCompatActivity implements SensorEvent
     }
 
     private void datoEjeZ() {
+        //Obtener datos de la gráfica
         LineData datosEjeZ = graficaAcelerometro.getLineData();
         //Establecer valor del eje
         float z = zAct - zCal;
         String Z = "Z: " + z + "\nm/s^2";
-
+        //Definir set de datos para el eje Z
         ILineDataSet setEjeZ = datosEjeZ.getDataSetByLabel("Z", false);
         if (setEjeZ == null) {
             setEjeZ = setEjeZ();
@@ -299,8 +301,9 @@ public class AcelLinealActivity extends AppCompatActivity implements SensorEvent
     }
 
     private LineDataSet setEjeX() {
+        //Generar nuevo set de datos para el eje X
         LineDataSet setEjeX = new LineDataSet(null, "X");
-
+        //Establacer características del set
         setEjeX.setAxisDependency(YAxis.AxisDependency.LEFT);
         setEjeX.setColor(ColorTemplate.MATERIAL_COLORS[0]);
         setEjeX.setCircleColor(ColorTemplate.MATERIAL_COLORS[0]);
@@ -310,13 +313,14 @@ public class AcelLinealActivity extends AppCompatActivity implements SensorEvent
         setEjeX.setFillColor(ColorTemplate.MATERIAL_COLORS[0]);
         setEjeX.setHighLightColor(Color.rgb(46, 204, 113));
         setEjeX.setDrawValues(false);
-
+        //Devolver set de datos
         return setEjeX;
     }
 
     private LineDataSet setEjeY() {
+        //Generar nuevo set de datos para el eje Y
         LineDataSet setEjeY = new LineDataSet(null, "Y");
-
+        //Establacer características del set
         setEjeY.setAxisDependency(YAxis.AxisDependency.LEFT);
         setEjeY.setColor(ColorTemplate.MATERIAL_COLORS[3]);
         setEjeY.setCircleColor(ColorTemplate.MATERIAL_COLORS[3]);
@@ -326,13 +330,14 @@ public class AcelLinealActivity extends AppCompatActivity implements SensorEvent
         setEjeY.setFillColor(ColorTemplate.MATERIAL_COLORS[3]);
         setEjeY.setHighLightColor(Color.rgb(52, 152, 219));
         setEjeY.setDrawValues(false);
-
+        //Devolver set de datos
         return setEjeY;
     }
 
     private LineDataSet setEjeZ() {
+        //Generar nuevo set de datos para el eje Z
         LineDataSet setEjeZ = new LineDataSet(null, "Z");
-
+        //Establacer características del set
         setEjeZ.setAxisDependency(YAxis.AxisDependency.LEFT);
         setEjeZ.setColor(ColorTemplate.MATERIAL_COLORS[2]);
         setEjeZ.setCircleColor(ColorTemplate.MATERIAL_COLORS[2]);
@@ -342,7 +347,7 @@ public class AcelLinealActivity extends AppCompatActivity implements SensorEvent
         setEjeZ.setFillColor(ColorTemplate.MATERIAL_COLORS[2]);
         setEjeZ.setHighLightColor(Color.rgb(231, 76, 60));
         setEjeZ.setDrawValues(false);
-
+        //Devolver set de datos
         return setEjeZ;
     }
 }

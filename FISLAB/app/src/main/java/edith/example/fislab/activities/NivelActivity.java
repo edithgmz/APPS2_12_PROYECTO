@@ -127,9 +127,7 @@ public class NivelActivity extends AppCompatActivity implements SensorEventListe
         }
     }
 
-    @Override public void onAccuracyChanged(Sensor sensor, int accuracy) {
-        // Do something here if sensor accuracy changes.
-    }
+    @Override public void onAccuracyChanged(Sensor sensor, int accuracy) {}
 
     @Override public void onClick(View view) {
         //Establecer valores de los ejes

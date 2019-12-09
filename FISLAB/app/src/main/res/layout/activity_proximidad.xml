@@ -11,27 +11,94 @@
         android:id="@+id/cronometer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp"
         android:gravity="center"
-        android:textSize="35dp" />
+        android:textSize="50sp" />
 
-    <Button
-        android:id="@+id/btnStart"
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="?android:attr/listDivider" />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
-        android:onClick="onClick"
-        android:text="start" />
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/btnRestart"
+        <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:background="?android:attr/listDivider" />
+
+        <ImageButton
+            android:id="@+id/btnRestart"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            android:src="@drawable/ic_replay_black"
+            tools:ignore="ContentDescription" />
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:background="?android:attr/listDivider" />
+
+        <ImageButton
+            android:id="@+id/btnStart"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#FF00FF00"
+            android:src="@drawable/ic_play_arrow_black"
+            tools:ignore="ContentDescription" />
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:background="?android:attr/listDivider" />
+
+        <ImageButton
+            android:id="@+id/btnStop"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            android:src="@drawable/ic_pause_black"
+            tools:ignore="ContentDescription" />
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:background="?android:attr/listDivider" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginBottom="10dp"
+        android:background="?android:attr/listDivider" />
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Restart"
-        android:onClick="onClick"/>
+        android:text="@string/prox_distancia" />
 
-    <Button
-        android:id="@+id/btnStop"
+    <TextView
+        android:id="@+id/txtVwDistancia"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Stop" android:onClick="onClick"/>
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        tools:text="@string/prox_dist_ex" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/prox_mensaje"
+        android:textAlignment="center"
+        android:textColor="@android:color/black" />
+
 </LinearLayout>

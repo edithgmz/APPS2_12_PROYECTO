@@ -27,4 +27,7 @@
     <string name="sen_linear_acceleration">Linear Acceleration</string>
     <string name="sen_rotation_vector">Rotation Vector</string>
     <string name="sen_proximity">Proximity</string>
+    <string name="prox_distancia">Distancia Máxima</string>
+    <string name="prox_dist_ex">0.0 cm</string>
+    <string name="prox_mensaje">El cronómetro se detendrá cuando el objeto se encuentre a una distancia menor a la máxima.</string>
 </resources>

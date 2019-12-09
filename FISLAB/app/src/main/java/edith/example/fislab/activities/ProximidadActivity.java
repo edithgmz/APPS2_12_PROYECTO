@@ -9,18 +9,20 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.View;
 import android.widget.Chronometer;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import edith.example.fislab.R;
 
-public class ProximidadActivity extends AppCompatActivity implements SensorEventListener {
+public class ProximidadActivity extends AppCompatActivity implements SensorEventListener, ImageButton.OnClickListener {
+    private ImageButton btnStart;
+    private TextView txtVwDistancia;
+    //Sensor
     private SensorManager sensorManager;
     private Sensor sProximity;
-
-    private float proximityVal;
-
+    //Cronómetro
     private Chronometer cronometro;
     private boolean correr;
     private long detenerse;
@@ -30,16 +32,29 @@ public class ProximidadActivity extends AppCompatActivity implements SensorEvent
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_proximidad);
-        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        sProximity = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+        //Vincular componentes
         cronometro = findViewById(R.id.cronometer);
-
+        ImageButton btnRestart = findViewById(R.id.btnRestart);
+        btnStart = findViewById(R.id.btnStart);
+        ImageButton btnStop = findViewById(R.id.btnStop);
+        txtVwDistancia = findViewById(R.id.txtVwDistancia);
+        //Obtener servicio del sistema
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        //Verificar que el manager no esté vacío
+        if (sensorManager != null) {
+            sProximity = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+        }
+        //Escuchadores
+        btnRestart.setOnClickListener(this);
+        btnStart.setOnClickListener(this);
+        btnStop.setOnClickListener(this);
     }
 
 
     @Override
     protected void onResume() {
         super.onResume();
+        //Verificar que exista el sensor
         if (sProximity != null){
             sensorManager.registerListener(this, sProximity, SensorManager.SENSOR_DELAY_NORMAL);
         }
@@ -48,33 +63,32 @@ public class ProximidadActivity extends AppCompatActivity implements SensorEvent
     @Override
     protected void onPause() {
         super.onPause();
-        if(sProximity!=null)
-            sensorManager.unregisterListener(this);
+        //Anular registro del escuchador
+        sensorManager.unregisterListener(this);
     }
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
+        String sVal = "";
         if (sProximity != null) {
-            //Convertir valores crudos obtenidos
-            proximityVal = sensorEvent.values[0];
-            if(proximityVal < sProximity.getMaximumRange()){
-                findViewById(R.id.btnStart).setBackgroundColor(Color.RED);
+            //Obtener valor del sensor
+            float proximityVal = sensorEvent.values[0];
+            sVal = sProximity.getMaximumRange() + " cm";
+            //Detener cronómetro y cambiar color de botón si el objeto se encuentra a una distancia menor a la máxima
+            if (proximityVal < sProximity.getMaximumRange()) {
+                btnStart.setBackgroundColor(Color.RED);
                 stopChronometer();
-            }
-            else findViewById(R.id.btnStart).setBackgroundColor(Color.GREEN);
+            } else { btnStart.setBackgroundColor(Color.GREEN); }
         }
-
+        //Mostrar distancia máxima
+        txtVwDistancia.setText(sVal);
     }
 
+    @Override public void onAccuracyChanged(Sensor sensor, int i) {}
 
-
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int i) {
-
-    }
-
-    public void onClick(View view) {
-        switch (view.getId()){
+    @Override public void onClick(View v) {
+        //Cambiar estado del cronómetro dependiendo del botón presionado
+        switch (v.getId()) {
             case R.id.btnStart:
                 startChronometer();
                 break;
@@ -85,23 +99,25 @@ public class ProximidadActivity extends AppCompatActivity implements SensorEvent
                 stopChronometer();
                 break;
         }
-
     }
 
     private void startChronometer() {
+        //Iniciar cronómetro
         if (!correr){
-            cronometro.setBase(SystemClock.elapsedRealtime()-detenerse);
+            cronometro.setBase(SystemClock.elapsedRealtime() - detenerse);
             cronometro.start();
-            correr=true;
+            correr = true;
         }
     }
 
     public void restartChronometer(){
+        //Reiniciar cronómetro
         cronometro.setBase(SystemClock.elapsedRealtime());
-        detenerse=0;
+        detenerse = 0;
     }
 
     private void stopChronometer() {
+        //Detener cronómetro
         if (correr){
             cronometro.stop();
             detenerse = SystemClock.elapsedRealtime() - cronometro.getBase();

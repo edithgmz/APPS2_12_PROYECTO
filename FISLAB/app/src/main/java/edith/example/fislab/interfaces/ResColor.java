@@ -6,8 +6,7 @@ import android.os.Build;
 import androidx.annotation.RequiresApi;
 
 public class ResColor {//el resistor vale x1*10 + x2 + 10^x3 +- x4 donde x4 solo es dorado o plateado
-
-
+    //Arreglos de colores disponibles en los resistores
     private final static int[] BLACK = {Color.BLACK}; //negro es 0
 
     private final static int[] BROWN = {Color.rgb(72, 70, 82), //café es 1
@@ -38,8 +37,8 @@ public class ResColor {//el resistor vale x1*10 + x2 + 10^x3 +- x4 donde x4 solo
     @RequiresApi(api = Build.VERSION_CODES.O) private static boolean isColor(int mycol, int[] color) {
         int dif = 10;
         boolean res = false;
-
-        for (int elcol : color) { //seria mas eficiente con un while
+        //Recorrer arreglo de colores
+        for (int elcol : color) {
             if (Color.blue(mycol) >= Color.blue(elcol) - dif && Color.blue(mycol) <= Color.blue(elcol) + dif &&
                 Color.red(mycol) >= Color.red(elcol) - dif && Color.red(mycol) <= Color.red(elcol) + dif &&
                 Color.green(mycol) >= Color.green(elcol) - dif && Color.green(mycol) <= Color.green(elcol) + dif) {
@@ -47,13 +46,13 @@ public class ResColor {//el resistor vale x1*10 + x2 + 10^x3 +- x4 donde x4 solo
                 break;
             }
         }
-
+        //Devolver si lo que se ingresó es un color
         return res;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O) public static int getDigit(int color) {
         int dig = -1;
-
+        //Dependiendo del color se indica el dígito correspondiente
         if (ResColor.isColor(color, ResColor.BLACK)) {
             System.out.println("negro");
             dig = 0;
@@ -85,24 +84,22 @@ public class ResColor {//el resistor vale x1*10 + x2 + 10^x3 +- x4 donde x4 solo
             System.out.println("blanco");
             dig = 9;
         }
-
+        //Devolver dígito
         return dig;
     }
 
     public static String calculaRes(int b1, int b2, int b3, String tol) {
-        //double val = ((b1 * 10) + b2) + Math.pow(10, b3); //valor
         String sTol = "±";
-
+        //Dependiendo del nombre de toleracia establece un valor
         switch (tol) {
             case "Dorado":
-                sTol += "5"; //dorado
+                sTol += "5";
                 break;
             case "Plateado":
-                sTol += "10"; //plateado
+                sTol += "10";
                 break;
         }
-
-        return ((b1 * 10) + b2) + "x10^" + b3 + sTol; //valor en nota 100tifica.
-        //return val + sTol;
+        //Devuelve el valor en notación científica
+        return ((b1 * 10) + b2) + "x10^" + b3 + sTol;
     }
 }

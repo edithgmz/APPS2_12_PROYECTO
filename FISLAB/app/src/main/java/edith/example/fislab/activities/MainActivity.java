@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
 
     @Override
     public void onClick(View view) {
+        //Iniciar actividad dependiendo del botón presionado
         switch (view.getId()) {
             case R.id.btnAcelerometro:
                 startActivity(inAcel);
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
                 startActivity(inResValor);
                 break;
             case R.id.btnSensores:
+                //Sustituye imagen de portada por fragmento informativo
                 flSensores.setVisibility(View.VISIBLE);
                 imgVwPortada.setVisibility(View.GONE);
                 cargarFragment(new VerifSensoresFragment());
